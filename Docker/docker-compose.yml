@@ -1,3 +1,8 @@
+# services = vull que em egneri contenidor amb nom postgres amb el Dockerfile
+# exportes a port 5432 en el nostre ordinador
+# vols que la variable de imatge. 
+# per executarho vas a una terminal i fas: docker compose up
+
 version: "3.9"
 services:
   postgres:
