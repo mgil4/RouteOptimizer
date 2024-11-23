@@ -58,29 +58,29 @@ def crear_vista_unificada():
         id,
         geom,
         3 * ST_Length(geom) AS costo
-    FROM red1
+    FROM eps.red1
     UNION ALL
     SELECT 
         id,
         geom,
         5 * ST_Length(geom) AS costo
-    FROM red2
+    FROM eps.red2
     UNION ALL
     SELECT 
         id,
         geom,
         10 * ST_Length(geom) AS costo
-    FROM red3;
+    FROM eps.red3;
     """
     ejecutar_consulta(query)
     print("Vista unificada creada correctamente.")
 
 # Preparar las tablas para pgRouting
 def preparar_tablas_para_pgrouting():
-    redes = ["red1", "red2", "red3"]
+    redes = ["eps.red1", "eps.red2", "eps.red3"]
     for red in redes:
         query = sql.SQL(
-            "SELECT pgr_createTopology({table}, 0.001, 'geom', 'id');"
+           f"SELECT pgr_createTopology({red}, 0.001, 'geom', 'id');"
         ).format(table=sql.Identifier(red))
         ejecutar_consulta(query)
         print(f"Topología creada para {red}.")
@@ -90,8 +90,9 @@ def calcular_ruta_a_estrella(x_origen, y_origen, x_destino, y_destino):
     query_ruta = """
     SELECT edge FROM pgr_astar(
         'SELECT id, source, target, costo AS cost, costo AS reverse_cost FROM red_unificada',
-        (SELECT id FROM red1_puntos WHERE ST_DWithin(geom, ST_SetSRID(ST_MakePoint(%s, %s), 4326), 0.001)),
-        (SELECT id FROM red3_puntos WHERE ST_DWithin(geom, ST_SetSRID(ST_MakePoint(%s, %s), 4326), 0.001)),
+        (SELECT id FROM eps.red1_puntos WHERE ST_DWithin(geom, ST_SetSRID(ST_MakePoint(%s, %s), 4326), 0.001)),
+        (SELECT id FROM eps.red2_puntos WHERE ST_DWithin(geom, ST_SetSRID(ST_MakePoint(%s, %s), 4326), 0.001)),
+        (SELECT id FROM eps.red3_puntos WHERE ST_DWithin(geom, ST_SetSRID(ST_MakePoint(%s, %s), 4326), 0.001)),
         directed := false
     );
     """
