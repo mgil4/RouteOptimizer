@@ -48,4 +48,13 @@ psql -U usuari -d nom_base_dades -f multicapa.sql
 ```
 python3 main.py
 ```
+## Bones pràctiques en el desenvolupament
+1. Creació d'apunts i esquemes durant el desenvolupament del projecte. 
+Aquests apunts es recullen en el document **apunts_i_esquemes.pdf**. Tenen la intenció de mostrar com han evolucionat les nostres idees i el nostre codi en les 24 hores que ha dut el seu desenvolupament. A més, permet recollir informació important que hem anat aprés, així com representacions visuals del que hem plantejat. 
+2. Desenvolupament del ReadMe
+3. El codi es legible: tenim noms de funcions coherents i noms de fitxers aclaridors
+5. Suport visual per a l'explicació del codi (les slides)
+6. Commits amb títols clars
+
+
 
