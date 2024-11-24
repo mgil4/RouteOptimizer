@@ -72,16 +72,8 @@ WHERE ST_DWithin(aristas.geom, nodos.geom, 0.001)  -- Ajusta la tolerància si �
 -- Aquesta consulta actualitza la columna "target" de cada arista assignant el ID del node 
 -- més proper al punt de fi de l'arista, utilitzant una lògica similar a la de l'actualització de "source".
 
--- Crear la taula de punts de red1 (ja existeix segons el teu script anterior)
-CREATE TABLE eps.red1_puntos (
-    id integer NOT NULL,
-    geom geometry(Point, 25830),
-    fid bigint
-);
--- Aquesta línia crea una taula anomenada "red1_puntos" dins de l'esquema "eps" 
--- que conté punts específics de la xarxa de carreteres, amb un identificador, 
--- la seva geometria i un camp "fid" addicional.
 
+--- CAMBIAR PELS PUNTS QUE ENS DONEN 
 -- Definir els IDs dels punts d'origen i destí
 SELECT geom INTO TEMP TABLE origen_punto FROM eps.red1_puntos WHERE id = 1;
 SELECT geom INTO TEMP TABLE destino_punto FROM eps.red1_puntos WHERE id = 6;
